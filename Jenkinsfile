@@ -15,19 +15,19 @@ pipeline {
   stages {
     stage('Init Terraform') {
       steps {
-        sh 'terraform init'
+        bat 'terraform init'
       }
     }
 
     stage('Validate') {
       steps {
-        sh 'terraform validate'
+        bat 'terraform validate'
       }
     }
 
     stage('Plan') {
       steps {
-        sh 'terraform plan -var-file="envs/${ENVIRONMENT}.tfvars"'
+        bat 'terraform plan -var-file="envs/${ENVIRONMENT}.tfvars"'
       }
     }
 
@@ -37,7 +37,7 @@ pipeline {
       }
       steps {
         input message: "Approve deployment to ${params.ENVIRONMENT}?"
-        sh 'terraform apply -auto-approve -var-file="envs/${ENVIRONMENT}.tfvars"'
+        bat 'terraform apply -auto-approve -var-file="envs/${ENVIRONMENT}.tfvars"'
       }
     }
   }
