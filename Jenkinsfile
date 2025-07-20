@@ -26,15 +26,15 @@ pipeline {
     }
 
     stage('Plan') {
-      steps {
-        bat 'terraform plan -var-file="envs/${ENVIRONMENT}.tfvars"'
-      }
+    steps {
+        bat 'terraform plan -var-file="envs/%ENVIRONMENT%.tfvars"'
     }
-
-    stage('Apply') {
-      when {
-        expression { return params.ENVIRONMENT == 'production' || params.ENVIRONMENT == 'staging' }
-      }
+}
+stage('Apply') {
+    steps {
+        bat 'terraform apply -auto-approve -var-file="envs/%ENVIRONMENT%.tfvars"'
+    }
+}
       steps {
         input message: "Approve deployment to ${params.ENVIRONMENT}?"
         bat 'terraform apply -auto-approve -var-file="envs/${ENVIRONMENT}.tfvars"'
