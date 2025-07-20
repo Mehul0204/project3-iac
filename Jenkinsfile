@@ -21,25 +21,19 @@ pipeline {
 
     stage('Init Terraform') {
       steps {
-        dir('project3-iac') {
-          sh 'terraform init'
-        }
+        sh 'terraform init'
       }
     }
 
     stage('Validate') {
       steps {
-        dir('project3-iac') {
-          sh 'terraform validate'
-        }
+        sh 'terraform validate'
       }
     }
 
     stage('Plan') {
       steps {
-        dir('project3-iac') {
-          sh 'terraform plan -var-file="envs/${ENVIRONMENT}.tfvars"'
-        }
+        sh 'terraform plan -var-file="envs/${ENVIRONMENT}.tfvars"'
       }
     }
 
@@ -49,9 +43,7 @@ pipeline {
       }
       steps {
         input message: "Approve deployment to ${params.ENVIRONMENT}?"
-        dir('project3-iac') {
-          sh 'terraform apply -auto-approve -var-file="envs/${ENVIRONMENT}.tfvars"'
-        }
+        sh 'terraform apply -auto-approve -var-file="envs/${ENVIRONMENT}.tfvars"'
       }
     }
   }
