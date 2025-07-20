@@ -13,12 +13,6 @@ pipeline {
   }
 
   stages {
-    stage('Checkout') {
-      steps {
-        git 'https://github.com/Mehul0204/project3-iac.git'
-      }
-    }
-
     stage('Init Terraform') {
       steps {
         sh 'terraform init'
